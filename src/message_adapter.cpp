@@ -16,6 +16,9 @@
 class message_adapter_node{
 public:
     message_adapter_node(){
+        ros::NodeHandle nodehandle; 
+        ros::NodeHandle covhandle("~"); // for handling covariances 
+
         //Topic you want to subscribe
         hedge_imu_sub = nodehandle.subscribe(HEDGE_IMU_FUSION_TOPIC_NAME, 1000, &message_adapter_node::ImuFusionCallback, this);
         hedge_pos_ang_sub = nodehandle.subscribe(HEDGE_POSITION_WITH_ANGLE_TOPIC_NAME, 1000, &message_adapter_node::PosAngCallback, this);
@@ -67,33 +70,30 @@ public:
 
     void cov_data_dump(ros::NodeHandle &covhandle){
         std::vector<float> pos_ang_cov;
-        std::vector<float> angular_velocity_covariance;
-        std::vector<float> linear_acceleration_covariance;
-        std::vector<float> orientation_covariance;
+        std::vector<float> imu_angular_velocity_cov;
+        std::vector<float> imu_linear_acceleration_cov;
+        std::vector<float> imu_orientation_cov;
 
         covhandle.getParam("pos_ang_covariance", pos_ang_cov);
-        covhandle.getParam("angular_velocity_covariance", angular_velocity_covariance);
-        covhandle.getParam("linear_acceleration_covariance", linear_acceleration_covariance);
-        covhandle.getParam("orientation_covariance", orientation_covariance);     
+        covhandle.getParam("angular_velocity_covariance", imu_angular_velocity_cov);
+        covhandle.getParam("linear_acceleration_covariance", imu_linear_acceleration_cov);
+        covhandle.getParam("orientation_covariance", imu_orientation_cov);     
 
         for(int i=0; i < pos_ang_cov.size(); i++){
-            pose_obj.pose.covariance[i] = pos_ang_cov[i];
+            pose_obj.pose.covariance[i] = pos_ang_cov.at(i);
         }
-        for(int i=0; i < angular_velocity_covariance.size(); i++){
-            imu_obj.angular_velocity_covariance[i] = angular_velocity_covariance[i];
+        for(int i=0; i < imu_angular_velocity_cov.size(); i++){
+            imu_obj.angular_velocity_covariance[i] = imu_angular_velocity_cov.at(i);
         }
-        for(int i=0; i < linear_acceleration_covariance.size(); i++){
-            imu_obj.linear_acceleration_covariance[i] = linear_acceleration_covariance[i];
+        for(int i=0; i < imu_linear_acceleration_cov.size(); i++){
+            imu_obj.linear_acceleration_covariance[i] = imu_linear_acceleration_cov.at(i);
         }
-        for(int i=0; i < orientation_covariance.size(); i++){
-            imu_obj.orientation_covariance[i] = orientation_covariance[i];
+        for(int i=0; i < imu_orientation_cov.size(); i++){
+            imu_obj.orientation_covariance[i] = imu_orientation_cov.at(i);
         }
     }
 
 private:
-    ros::NodeHandle nodehandle; 
-    ros::NodeHandle covhandle; // for handling covariances 
-
     // publisher objects
     ros::Publisher hedge_imu_pub;
     ros::Publisher hedge_pos_ang_pub;
