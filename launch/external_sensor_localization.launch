@@ -12,7 +12,7 @@
     
     <!-- Map server -->
     <node pkg="map_server" name="map_server" type="map_server" args="$(arg map)"/>
-    
+
     <!-- AMCL -->
     <include file="$(find turtlebot3_navigation)/launch/amcl_test.launch"/>
 
@@ -27,10 +27,6 @@
         <arg name="model" value="$(arg model)" />
         <arg name="move_forward_only" value="$(arg move_forward_only)"/>
     </include>
-    
-    <!-- Prevent turtlebot3_core from publishing tf to base_footprint -->
-    <remap from="/turtlebot3_core" to="/battery_state"/>
-    <!-- <remap from="/robot_state_publisher" to="/battery_state"/> -->
 
     <!-- Enable Marvelmind sensors -->
     <node pkg="external_sensor_localization" type="hedge_data" name="hedge_data" output="screen"/>
@@ -43,9 +39,9 @@
         <rosparam command="load" file="$(find robot_localization)/params/ekf_odom.yaml" />
     </node>
 
-    <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_map_to_odom" clear_params="true"> 
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_map_to_odom" clear_params="true"> 
         <rosparam command="load" file="$(find robot_localization)/params/ekf_map.yaml" />
-    </node> -->
+    </node>
 
     <!-- rviz -->
     <group if="$(arg open_rviz)"> 
