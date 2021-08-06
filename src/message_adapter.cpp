@@ -20,15 +20,15 @@ public:
         ros::NodeHandle covhandle("~"); // for handling covariances 
 
         //Topic you want to subscribe
-        hedge_imu_sub = nodehandle.subscribe(HEDGE_IMU_FUSION_TOPIC_NAME, 1000, &message_adapter_node::ImuFusionCallback, this);
+        // hedge_imu_sub = nodehandle.subscribe(HEDGE_IMU_FUSION_TOPIC_NAME, 1000, &message_adapter_node::ImuFusionCallback, this);
         hedge_pos_ang_sub = nodehandle.subscribe(HEDGE_POSITION_WITH_ANGLE_TOPIC_NAME, 1000, &message_adapter_node::PosAngCallback, this);
 
         //Topic you want to publish
-        hedge_imu_pub = nodehandle.advertise<sensor_msgs::Imu>(ADAPTED_HEDGE_IMU_FUSION_TOPIC_NAME, 1000);
+        // hedge_imu_pub = nodehandle.advertise<sensor_msgs::Imu>(ADAPTED_HEDGE_IMU_FUSION_TOPIC_NAME, 1000);
         hedge_pos_ang_pub = nodehandle.advertise<geometry_msgs::PoseWithCovarianceStamped>(ADAPTED_HEDGE_POSITION_WITH_ANGLE_TOPIC_NAME, 1000);
 
         //Declare beacon frames
-        imu_obj.header.frame_id = "beacon_imu_frame";
+        // imu_obj.header.frame_id = "beacon_imu_frame";
         pose_obj.header.frame_id = "beacon_map_frame";
 
         //Data dumping to covariance matrices: orientation, angular velocity, linear acceleration and pose covariances
@@ -51,59 +51,59 @@ public:
         hedge_pos_ang_pub.publish(pose_obj);
     }
     
-    void ImuFusionCallback(const external_sensor_localization::hedge_imu_fusion::ConstPtr& hedge_imu_msg){
-        imu_obj.orientation.x = hedge_imu_msg->qx; // orientation quaternion of mobile beacon
-        imu_obj.orientation.y = hedge_imu_msg->qy;
-        imu_obj.orientation.z = hedge_imu_msg->qz;
-        imu_obj.orientation.w = hedge_imu_msg->qw; // angle 
+    // void ImuFusionCallback(const external_sensor_localization::hedge_imu_fusion::ConstPtr& hedge_imu_msg){
+    //     imu_obj.orientation.x = hedge_imu_msg->qx; // orientation quaternion of mobile beacon
+    //     imu_obj.orientation.y = hedge_imu_msg->qy;
+    //     imu_obj.orientation.z = hedge_imu_msg->qz;
+    //     imu_obj.orientation.w = hedge_imu_msg->qw; // angle 
 
-        imu_obj.angular_velocity.x = hedge_imu_msg->ax; // acceleration of mobile beacon m/s^2
-        imu_obj.angular_velocity.y = hedge_imu_msg->ay;
-        imu_obj.angular_velocity.z = hedge_imu_msg->az;
+    //     imu_obj.angular_velocity.x = hedge_imu_msg->ax; // acceleration of mobile beacon m/s^2
+    //     imu_obj.angular_velocity.y = hedge_imu_msg->ay;
+    //     imu_obj.angular_velocity.z = hedge_imu_msg->az;
 
-        imu_obj.linear_acceleration.x = hedge_imu_msg->vx; // speed vector of mobile beacon m/s
-        imu_obj.linear_acceleration.y = hedge_imu_msg->vy;
-        imu_obj.linear_acceleration.z = hedge_imu_msg->vz;
+    //     imu_obj.linear_acceleration.x = hedge_imu_msg->vx; // speed vector of mobile beacon m/s
+    //     imu_obj.linear_acceleration.y = hedge_imu_msg->vy;
+    //     imu_obj.linear_acceleration.z = hedge_imu_msg->vz;
 
-        hedge_imu_pub.publish(imu_obj);
-    }
+    //     hedge_imu_pub.publish(imu_obj);
+    // }
 
     void cov_data_dump(ros::NodeHandle &covhandle){
         std::vector<float> pos_ang_cov;
-        std::vector<float> imu_angular_velocity_cov;
-        std::vector<float> imu_linear_acceleration_cov;
-        std::vector<float> imu_orientation_cov;
+        // std::vector<float> imu_angular_velocity_cov;
+        // std::vector<float> imu_linear_acceleration_cov;
+        // std::vector<float> imu_orientation_cov;
 
         covhandle.getParam("pos_ang_covariance", pos_ang_cov);
-        covhandle.getParam("angular_velocity_covariance", imu_angular_velocity_cov);
-        covhandle.getParam("linear_acceleration_covariance", imu_linear_acceleration_cov);
-        covhandle.getParam("orientation_covariance", imu_orientation_cov);     
+        // covhandle.getParam("angular_velocity_covariance", imu_angular_velocity_cov);
+        // covhandle.getParam("linear_acceleration_covariance", imu_linear_acceleration_cov);
+        // covhandle.getParam("orientation_covariance", imu_orientation_cov);     
 
         for(int i=0; i < pos_ang_cov.size(); i++){
             pose_obj.pose.covariance[i] = pos_ang_cov.at(i);
         }
-        for(int i=0; i < imu_angular_velocity_cov.size(); i++){
-            imu_obj.angular_velocity_covariance[i] = imu_angular_velocity_cov.at(i);
-        }
-        for(int i=0; i < imu_linear_acceleration_cov.size(); i++){
-            imu_obj.linear_acceleration_covariance[i] = imu_linear_acceleration_cov.at(i);
-        }
-        for(int i=0; i < imu_orientation_cov.size(); i++){
-            imu_obj.orientation_covariance[i] = imu_orientation_cov.at(i);
-        }
+        // for(int i=0; i < imu_angular_velocity_cov.size(); i++){
+        //     imu_obj.angular_velocity_covariance[i] = imu_angular_velocity_cov.at(i);
+        // }
+        // for(int i=0; i < imu_linear_acceleration_cov.size(); i++){
+        //     imu_obj.linear_acceleration_covariance[i] = imu_linear_acceleration_cov.at(i);
+        // }
+        // for(int i=0; i < imu_orientation_cov.size(); i++){
+        //     imu_obj.orientation_covariance[i] = imu_orientation_cov.at(i);
+        // }
     }
 
 private:
     // publisher objects
-    ros::Publisher hedge_imu_pub;
+    // ros::Publisher hedge_imu_pub;
     ros::Publisher hedge_pos_ang_pub;
   
     // subscriber objects
-    ros::Subscriber hedge_imu_sub;
+    // ros::Subscriber hedge_imu_sub;
     ros::Subscriber hedge_pos_ang_sub;
 
     // message objects
-    sensor_msgs::Imu imu_obj;
+    // sensor_msgs::Imu imu_obj;
     geometry_msgs::PoseWithCovarianceStamped pose_obj;
 
 };//End of class message_adapter_node
