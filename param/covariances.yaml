@@ -18,7 +18,9 @@ linear_acceleration_covariance: [0, 0, 0,
 
 # x, y, z, roll, pitch, yaw
 # float[36]
-# jadskjadkldakljad
+# the diagonals are the variance = standard deviation squared
+# the higher the variance -> more noise -> the less trust worthy data are
+# if the covariance is high enough kalman filter will ignore that value
 pos_ang_covariance: [0.78, 0, 0, 0, 0, 0,
                      0, 0.78, 0, 0, 0, 0,
                      0, 0, 0.78, 0, 0, 0,
