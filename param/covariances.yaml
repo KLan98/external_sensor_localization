@@ -1,0 +1,29 @@
+# roll, pitch, yaw
+# float[9]
+orientation_covariance: [0, 0, 0,
+                         0, 0, 0,
+                         0, 0, 0]
+
+# roll, pitch, yaw
+# float[9]
+angular_velocity_covariance: [0, 0, 0,
+                              0, 0, 0,
+                              0, 0, 0]
+
+# x, y, z
+# float[9]
+linear_acceleration_covariance: [0, 0, 0,
+                                 0, 0, 0,
+                                 0, 0, 0]
+
+# x, y, z, roll, pitch, yaw
+# float[36]
+# the diagonals are the variance = standard deviation squared
+# the higher the variance -> more noise -> the less trust worthy data are
+# if the covariance is high enough kalman filter will ignore that value
+pos_ang_covariance: [0.78, 0, 0, 0, 0, 0,
+                     0, 0.78, 0, 0, 0, 0,
+                     0, 0, 0.78, 0, 0, 0,
+                     0, 0, 0, 0.02, 0, 0,
+                     0, 0, 0, 0, 0.02, 0,
+                     0, 0, 0, 0, 0, 0.02]

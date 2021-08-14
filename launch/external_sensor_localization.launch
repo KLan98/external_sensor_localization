@@ -4,7 +4,7 @@
     <arg name="map" default="$(find external_sensor_localization)/maps/map.yaml"/>
     <arg name="open_rviz" default="true"/>
     <arg name="move_forward_only" default="false"/>
-  
+
     <!-- Turtlebot3 -->
     <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch">
         <arg name="model" value="$(arg model)" />
@@ -12,7 +12,7 @@
     
     <!-- Map server -->
     <node pkg="map_server" name="map_server" type="map_server" args="$(arg map)"/>
-    
+
     <!-- AMCL -->
     <include file="$(find turtlebot3_navigation)/launch/amcl_test.launch"/>
 
@@ -20,25 +20,26 @@
     <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_imu" args="0 0 0 0 0 0 base_footprint imu_link 100"/>
     <node pkg="tf" type="static_transform_publisher" name="base_link_to_beacon_imu" args="0 0 0 0 0 0 base_link beacon_imu_frame 100"/>
     <node pkg="tf" type="static_transform_publisher" name="beacon_map_to_map" args="0 0 0 0 0 0 beacon_map_frame map 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_base_link" args="0 0 0 0 0 0 base_footprint base_link 100"/>
 
     <!-- Move_base -->
     <include file="$(find turtlebot3_navigation)/launch/move_base.launch">
         <arg name="model" value="$(arg model)" />
         <arg name="move_forward_only" value="$(arg move_forward_only)"/>
     </include>
-    
-    <!-- Prevent turtlebot3_core from publishing tf to base_footprint -->
-    <remap from="/turtlebot3_core" to="/map_updates"/>
 
     <!-- Enable Marvelmind sensors -->
     <node pkg="external_sensor_localization" type="hedge_data" name="hedge_data" output="screen"/>
-    <node pkg="external_sensor_localization" type="message_adapter" name="message_adapter" output="screen"/>
+    <node pkg="external_sensor_localization" type="message_adapter" name="message_adapter" clear_params="true" output="screen">
+        <rosparam command="load" file="$(find external_sensor_localization)/param/covariances.yaml" />
+    </node>
 
-    <!-- Enable EKF localization nodes -->
-    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_odom" clear_params="true"> 
+    <!-- Enable EKF  -->
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_odom_to_basefootprint" clear_params="true"> 
         <rosparam command="load" file="$(find robot_localization)/params/ekf_odom.yaml" />
     </node>
-    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_map" clear_params="true"> 
+
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_map_to_odom" clear_params="true"> 
         <rosparam command="load" file="$(find robot_localization)/params/ekf_map.yaml" />
     </node>
 
