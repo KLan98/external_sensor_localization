@@ -19,19 +19,19 @@ public:
         ros::NodeHandle nodehandle; 
         ros::NodeHandle covhandle("~"); // for handling covariances 
 
-        //Topic you want to subscribe
+        // Topics you want to subscribe
         // hedge_imu_sub = nodehandle.subscribe(HEDGE_IMU_FUSION_TOPIC_NAME, 1000, &message_adapter_node::ImuFusionCallback, this);
         hedge_pos_ang_sub = nodehandle.subscribe(HEDGE_POSITION_WITH_ANGLE_TOPIC_NAME, 1000, &message_adapter_node::PosAngCallback, this);
 
-        //Topic you want to publish
+        // Topics you want to publish
         // hedge_imu_pub = nodehandle.advertise<sensor_msgs::Imu>(ADAPTED_HEDGE_IMU_FUSION_TOPIC_NAME, 1000);
         hedge_pos_ang_pub = nodehandle.advertise<geometry_msgs::PoseWithCovarianceStamped>(ADAPTED_HEDGE_POSITION_WITH_ANGLE_TOPIC_NAME, 1000);
 
-        //Declare beacon frames
+        // Declare beacon frames
         // imu_obj.header.frame_id = "beacon_imu_frame";
         pose_obj.header.frame_id = "beacon_map_frame";
 
-        //Data dumping to covariance matrices: orientation, angular velocity, linear acceleration and pose covariances
+        // Data dumping to covariance matrices: orientation, angular velocity, linear acceleration and pose covariances
         cov_data_dump(covhandle);
     }
   
@@ -46,8 +46,9 @@ public:
         pose_obj.pose.pose.position.y = hedge_pos_msg->y_m;
         pose_obj.pose.pose.position.z = hedge_pos_msg->z_m;
 
-        // pose_obj.pose.pose.orientation = tf::createQuaternionMsgFromYaw(hedge_pos_msg->angle); NOT THAT GOOD 
+        pose_obj.pose.pose.orientation = tf::createQuaternionMsgFromYaw(hedge_pos_msg->angle); 
 
+        // publish geometry message
         hedge_pos_ang_pub.publish(pose_obj);
     }
     
