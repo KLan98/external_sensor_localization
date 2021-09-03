@@ -11,7 +11,7 @@ Bachelor's thesis at Frankfurt UAS. Provide a more reliable localization solutio
 
 The following packages are required
 
-1. [robot_localization](http://wiki.ros.org/robot_localization) 
+1. [robot_localization](http://wiki.ros.org/robot_localization), go to my robot_localization_ekf repo and copy ekf_map.yaml and ekf_odom.yaml files and paste them to params folder of robot_localization package
 2. [marvelmind_nav](https://bitbucket.org/marvelmind_robotics/ros_marvelmind_package)
 
 # Result
