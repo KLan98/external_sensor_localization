@@ -1,3 +1,6 @@
+// This node is adjusted so that it only returns hedge_pos_ang_msg and hedge_imu_fusion_msg
+// The full source code for can be found at https://bitbucket.org/marvelmind_robotics/ros_marvelmind_package
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
