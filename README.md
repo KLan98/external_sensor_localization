@@ -5,7 +5,7 @@ Bachelor's thesis at Frankfurt UAS. Provide a more reliable localization solutio
 # Hardware
 
 1. Turtlebot3 burger
-2. Marvelmind starter set (including 5 ultrasonic sensors and 1 router)
+2. Marvelmind starter set (including 5 ultrasonic sensors and 1  modern)
 
 # Requirements
 
