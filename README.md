@@ -1,6 +1,6 @@
 # external_sensor_localization
 
-Bachelor's thesis at Frankfurt UAS. Provide a more reliable localization solution for robots using external Marvelmind's ultrasonic sensors. Utilize the Extended Kalman Filter to provide more accurate readings than AMCL.
+Bachelor's thesis at Frankfurt UAS. Provide a more reliable localization solution for robots using external Marvelmind's ultrasonic sensors. Utilize the Extended Kalman Filter to provide more accurate readings than AMCL. Can also solve the kidnapped robot problem!
 
 # Hardware
 
