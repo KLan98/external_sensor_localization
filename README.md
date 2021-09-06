@@ -16,7 +16,7 @@ The following packages are recommended
 
 # Result
 
-Click on the following [link](https://drive.google.com/file/d/1HUOCoFdYrak2g-GNLPjxd7Xol8M04kZN/view?usp=sharing) to see how well this system operates
+Click on the following [link](https://drive.google.com/file/d/1HUOCoFdYrak2g-GNLPjxd7Xol8M04kZN/view?usp=sharing) to see this system operates
 
 # License
 
