@@ -7,6 +7,10 @@ Bachelor's thesis at Frankfurt UAS. Provide a more reliable localization solutio
 1. Turtlebot3 burger
 2. Marvelmind starter set (including 5 ultrasonic sensors and 1  modern)
 
+# Setup
+
+Assume that user followed the [quick-start guide](https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/) provided by Turtlebot3’s manufacturer, after this setup functions such as bringup and drawing map using SLAM should work.
+
 # Requirements
 
 The following packages are recommended 
