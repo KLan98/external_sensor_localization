@@ -24,7 +24,7 @@ Click on the following [link](https://drive.google.com/file/d/1HUOCoFdYrak2g-GNL
 
 # Documentation
 
-Click on the following [link]() to see the full document for this project
+Click on the following [link](https://drive.google.com/file/d/1odA0mYKwqmqxzkFZB1_wFtFmQNTYxS3p/view?usp=sharing) to see the full document for this project
 
 # License
 
